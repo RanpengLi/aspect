@@ -253,7 +253,7 @@ namespace aspect
           // This is a requirement of the projected density approximation for
           // the Stokes equation and not related to the entropy formulation.
           // Also convert pressure from Pa to bar, bar is used in the table.
-          const double entropy = in.composition[i][entropy_index];
+      //const double entropy = in.composition[i][entropy_index];
           std::vector<double> temp_entropy (material_file_names.size()); // NEED TO CHANGE
           const double pressure = this->get_adiabatic_conditions().pressure(in.position[i]) / 1.e5;
 
@@ -261,6 +261,7 @@ namespace aspect
           for (unsigned int j=0; j<material_file_names.size(); ++j)
             {
               temp_entropy[j] = in.composition[i][entropy_indices[j]];
+              composition_temperature_lookup = entropy_reader[j]->temperature(temp_entropy[j], pressure);
              // std::cout << "temp_entropy = " <<temp_entropy[j]<<" " << std::endl;
               eos_outputs.densities[j] = entropy_reader[j]->density(temp_entropy[j], pressure);
              // std::cout << "densities = " << eos_outputs.densities[j]<<" " << std::endl;
@@ -299,10 +300,10 @@ namespace aspect
 
 
           // Thermal conductivity can be pressure temperature dependent
-          const double temperature_lookup =  entropy_reader[0]->temperature(entropy,pressure);
-          const std::vector<double> temp_temperature_lookup (material_file_names.size(), temperature_lookup); // NEED TO CHANGE
-          std::vector<double> composition_equalibrated_S(material_file_names.size());
+                    std::vector<double> composition_equalibrated_S(material_file_names.size());
           const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, temp_temperature_lookup, mass_fractions, temp_entropy, eos_outputs.specific_heat_capacities, pressure);
+const double temperature_lookup = equilibrated_T;  //entropy_reader[0]->temperature(entropy,pressure);
+          const std::vector<double> temp_temperature_lookup (material_file_names.size(), temperature_lookup); // NEED TO CHANGE
 
           
           out.thermal_conductivities[i] = thermal_conductivity(temperature_lookup, in.pressure[i], in.position[i]);
