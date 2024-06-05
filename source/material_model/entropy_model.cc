@@ -176,7 +176,7 @@ namespace aspect
       std::vector<double> composition_initial_T  = temperature;
       std::vector<double> composition_lookup_T(temperature.size());
 
-      bool equalibration = true;
+      bool equalibration = false;
       unsigned int iteration = 0;
       double ln_equalibrated_T = 0;
 
@@ -210,15 +210,15 @@ namespace aspect
           composition_initial_T = composition_lookup_T;
           composition_initial_S = composition_equalibrated_S;
 
+          equalibration = true;
           for (unsigned int i = 0; i < material_file_names.size(); ++i)
             {
               // TODO: set the small value (currently 1e-5) as a parameter
               if (std::abs (composition_lookup_T[i] - std::exp(ln_equalibrated_T)) >= 1e-5)
                 {
+                  equalibration = false;
                   break;
                 }
-
-              equalibration = true;
             }
         }
       return exp(ln_equalibrated_T); // vector composition_equalibrated_S could be modified while reading in reference
@@ -254,14 +254,15 @@ namespace aspect
           // the Stokes equation and not related to the entropy formulation.
           // Also convert pressure from Pa to bar, bar is used in the table.
       //const double entropy = in.composition[i][entropy_index];
-          std::vector<double> temp_entropy (material_file_names.size()); // NEED TO CHANGE
+          std::vector<double> temp_entropy (material_file_names.size());
+          std::vector<double> composition_temperature_lookup (material_file_names.size()); // NEED TO CHANGE
           const double pressure = this->get_adiabatic_conditions().pressure(in.position[i]) / 1.e5;
 
           // Loop over all material files, and store the looked-up values for all compositions.
           for (unsigned int j=0; j<material_file_names.size(); ++j)
             {
               temp_entropy[j] = in.composition[i][entropy_indices[j]];
-              composition_temperature_lookup = entropy_reader[j]->temperature(temp_entropy[j], pressure);
+              composition_temperature_lookup[j] = entropy_reader[j]->temperature(temp_entropy[j], pressure);
              // std::cout << "temp_entropy = " <<temp_entropy[j]<<" " << std::endl;
               eos_outputs.densities[j] = entropy_reader[j]->density(temp_entropy[j], pressure);
              // std::cout << "densities = " << eos_outputs.densities[j]<<" " << std::endl;
@@ -301,9 +302,25 @@ namespace aspect
 
           // Thermal conductivity can be pressure temperature dependent
                     std::vector<double> composition_equalibrated_S(material_file_names.size());
-          const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, temp_temperature_lookup, mass_fractions, temp_entropy, eos_outputs.specific_heat_capacities, pressure);
-const double temperature_lookup = equilibrated_T;  //entropy_reader[0]->temperature(entropy,pressure);
-          const std::vector<double> temp_temperature_lookup (material_file_names.size(), temperature_lookup); // NEED TO CHANGE
+      //std::cout << "equilibrated_S = " << composition_equalibrated_S<<" " << std::endl;
+ /*         std::cout << "input equilibrated_S = " << composition_equalibrated_S[0]<<" " <<composition_equalibrated_S[1]<<" " << std::endl;
+std::cout << "input equilibrated_T_lookup = " << composition_temperature_lookup[0]<<" " << composition_temperature_lookup[1]<<" " <<std::endl;
+std::cout << "input mass fraction = " << mass_fractions[0]<<" " << mass_fractions[1]<<" " <<std::endl;
+std::cout << "input temp_entropy = " << temp_entropy[0]<<" " << temp_entropy[1]<<" " <<std::endl;
+std::cout << "input eos_outputs.specific_heat_capacities = " << eos_outputs.specific_heat_capacities[0]<<" " << eos_outputs.specific_heat_capacities[1]<<" " <<std::endl;
+std::cout << "pressure = " << pressure<<" " <<std::endl;
+*/
+          
+          
+          const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, composition_temperature_lookup, mass_fractions, temp_entropy, eos_outputs.specific_heat_capacities, pressure);
+const double temperature_lookup = equilibrated_T;
+/*
+std::cout << "equilibrated_T = " << equilibrated_T<<" " << std::endl;
+std::cout << "equilibrated_S = " << composition_equalibrated_S[0]<<" " <<composition_equalibrated_S[1]<<" " << std::endl;
+std::cout << "equilibrated_T_lookup = " << composition_temperature_lookup[0]<<" " << composition_temperature_lookup[1]<<" " <<std::endl;
+*/
+  //entropy_reader[0]->temperature(entropy,pressure);
+       //   const std::vector<double> temp_temperature_lookup (material_file_names.size(), temperature_lookup); // NEED TO CHANGE
 
           
           out.thermal_conductivities[i] = thermal_conductivity(temperature_lookup, in.pressure[i], in.position[i]);
@@ -423,8 +440,8 @@ const double temperature_lookup = equilibrated_T;  //entropy_reader[0]->temperat
               std::vector<double> vs (material_file_names.size());
               for (unsigned int j=0; j<material_file_names.size(); ++j)
                 {
-                  vp[j] = entropy_reader[j]->seismic_vp(entropy,pressure);
-                  vs[j] = entropy_reader[j]->seismic_vs(entropy,pressure);
+                  vp[j] = entropy_reader[j]->seismic_vp(temp_entropy[j],pressure);
+                  vs[j] = entropy_reader[j]->seismic_vs(temp_entropy[j],pressure);
                 }
               seismic_out->vp[i] = MaterialUtilities::average_value (volume_fractions, vp, MaterialUtilities::arithmetic);
               seismic_out->vs[i] = MaterialUtilities::average_value (volume_fractions, vs, MaterialUtilities::arithmetic);
