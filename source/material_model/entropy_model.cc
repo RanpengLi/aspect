@@ -86,9 +86,11 @@ namespace aspect
                              "iterates over the advection equations but a non iterating solver scheme was selected. "
                              "Please check the consistency of your solver scheme."));
 
-//     AssertThrow(material_file_names.size() == 1 || SimulatorAccess<dim>::get_end_time () == 0,
-//                 ExcMessage("The 'entropy model' material model can only handle one composition, "
-//                            "and can therefore only read one material lookup table."));
+// Uncomment this line to enable the use of the entropy averaging for multiple compositions, 
+// which has NOT been tested yet.
+      AssertThrow(material_file_names.size() == 1 || SimulatorAccess<dim>::get_end_time () == 0,
+                 ExcMessage("The 'entropy model' material model can only handle one composition, "
+                            "and can therefore only read one material lookup table."));
 
 
 
@@ -207,7 +209,7 @@ namespace aspect
               // step3
               composition_lookup_T[i] = entropy_reader[i]->temperature(composition_equalibrated_S[i], pressure);
 
-              //       composition_lookup_Cp[i] = entropy_reader[i]->specific_heat(composition_equalibrated_S[i], pressure);
+              // composition_lookup_Cp[i] = entropy_reader[i]->specific_heat(composition_equalibrated_S[i], pressure);
             }
           // step4
           // update the T0 and S0 to prepare for another iteration
@@ -311,6 +313,7 @@ namespace aspect
 
           const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, composition_temperature_lookup, mass_fractions, component_entropy, eos_outputs.specific_heat_capacities, pressure);
           const double temperature_lookup = equilibrated_T;
+          
           /*
           std::cout << "equilibrated_T = " << equilibrated_T<<" " << std::endl;
           std::cout << "equilibrated_S = " << composition_equalibrated_S[0]<<" " <<composition_equalibrated_S[1]<<" " << std::endl;
