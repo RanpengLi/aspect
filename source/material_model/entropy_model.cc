@@ -30,7 +30,7 @@
 #include <aspect/material_model/steinberger.h>
 #include <aspect/material_model/equation_of_state/interface.h>
 
-namespace aspect
+namespace aspect //TEST
 {
   namespace MaterialModel
   {
