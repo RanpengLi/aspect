@@ -88,10 +88,10 @@ namespace aspect //TEST
 
 // Uncomment this line to enable the use of the entropy averaging for multiple compositions, 
 // which has NOT been tested yet.
-      AssertThrow(material_file_names.size() == 1 || SimulatorAccess<dim>::get_end_time () == 0,
+/*      AssertThrow(material_file_names.size() == 1 || SimulatorAccess<dim>::get_end_time () == 0,
                  ExcMessage("The 'entropy model' material model can only handle one composition, "
                             "and can therefore only read one material lookup table."));
-
+*/
 
 
       for (unsigned int i = 0; i < material_file_names.size(); ++i)
@@ -187,7 +187,7 @@ namespace aspect //TEST
       // Step1
 
       // TODO: set the iteration number as a parameter
-      while (equalibration == false || iteration == 50)
+      while (equalibration == false || iteration == 500)
         {
           double T_numerator = 0;
           double T_denominator = 0;
@@ -228,7 +228,7 @@ namespace aspect //TEST
                 }
             }
         }
-      std::cout << "S for component = " << composition_equalibrated_S[0] <<" "<<composition_equalibrated_S[1] <<std::endl;
+//(0920)      std::cout << "S for component = " << composition_equalibrated_S[0] <<" "<<composition_equalibrated_S[1] <<std::endl;
       //  entropy = composition_equalibrated_S;
       return exp(ln_equalibrated_T); // vector composition_equalibrated_S could be modified while reading in reference
 
@@ -374,7 +374,8 @@ namespace aspect //TEST
                            ++nth_entropy_index;
                         }
 
-                      
+//                          out.reaction_terms[i][c] = (composition_equalibrated_S[c_is_nth_entropy_field] - in.composition[i][entropy_indices[c_is_nth_entropy_field]]); // 
+
 
                           const unsigned int timestep_number = this->simulator_is_past_initialization()
                                                                ?
@@ -383,11 +384,16 @@ namespace aspect //TEST
                                                                0;
 
                           if (c_is_entropy_field == true && timestep_number > 0)
+                      //      const unsigned int dif = (composition_equalibrated_S[c_is_nth_entropy_field] - in.composition[i][entropy_indices[c_is_nth_entropy_field]])/ this->get_timestep(); 
                             reaction_rate_out->reaction_rates[i][c] = (composition_equalibrated_S[c_is_nth_entropy_field] - in.composition[i][entropy_indices[c_is_nth_entropy_field]]) / this->get_timestep();
+                            
+                       //     std::cout << "reaction_rate_out = " << composition_equalibrated_S[c_is_nth_entropy_field] <<" " << std::endl;
                         }
                     }
 
               out.reaction_terms[i][c] = 0.0;
+
+
                 }
               }
             }
