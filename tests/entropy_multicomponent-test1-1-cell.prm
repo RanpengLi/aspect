@@ -119,7 +119,7 @@ subsection Material model
 
   subsection Entropy model
     set Data directory                   = $ASPECT_SOURCE_DIR/data/material-model/entropy-table/ol-en-table/
-    set Material file name               = forsterite.txt, enstatite.txt 
+    set Material file name               = forsterite.txt, enstatite.txt
     set Maximum viscosity                = 1e20
     set Minimum viscosity                = 1e20
     set Lateral viscosity file name      = constant_lateral_vis_prefactor.txt
@@ -147,6 +147,3 @@ subsection Postprocess
     end
   end
 end
-
-
-
