@@ -856,22 +856,27 @@ namespace aspect
     double
     StructuredDataLookup<dim>::get_data(const Point<dim> &position,
                                         const unsigned int component,
-                                        const bool crash_if_not_in_range = false) const
+                                        bool crash_if_not_in_range) const
     {
       Assert(component<n_components, ExcMessage("Invalid component index"));
+
       if (crash_if_not_in_range)
-        std::vector double x_coords = get_interpolation_point_coordinates(0);
-        const double x_min = x_coords[0];
-        const double x_max = x_coords[x_coords.size()-1];
-        Assert (position[0] >= x_min && position[0] <= x_max,
+        {
+          const std::vector<double> x_coords = get_interpolation_point_coordinates(0);
+          const double x_min = x_coords[0];
+          const double x_max = x_coords[x_coords.size()-1];
+          // std::cout << "x_max = " << x_max<<" " << std::endl;
+          Assert (position[0] >= x_min && position[0] <= x_max,
                 ExcMessage("The requested position is outside the range of the data."));
 
-        const std::vector double y_coords = get_interpolation_point_coordinates(1);
-        const double y_min = y_coords[0];
-        const double y_max = y_coords[y_coords.size()-1];
-        Assert (position[1] >= y_min && position[1] <= y_max,
+          const std::vector<double> y_coords = get_interpolation_point_coordinates(1);
+          
+          const double y_min = y_coords[0];
+          const double y_max = y_coords[y_coords.size()-1];
+          //std::cout << "y_max = " << y_max<<" " << std::endl;
+          Assert (position[1] >= y_min && position[1] <= y_max,
                 ExcMessage("The requested position is outside the range of the data."));
-
+        }
       return data[component]->value(position);
     }
 
