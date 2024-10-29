@@ -53,7 +53,7 @@ namespace aspect
 
         for (unsigned int q=0; q<n_quadrature_points; ++q)
           {
-            const double entropy = input_data.solution_values[q][this->introspection().component_indices.compositional_fields[sets[0][0]]]; //sets = get sets of entropy-related data?
+            const double entropy = input_data.solution_values[q][this->introspection().component_indices.compositional_fields[sets[0][0]]]; //sets = vector that contain entropy-related data?
 
             computed_quantities[q](0) = entropy - this->get_adiabatic_conditions().temperature(input_data.evaluation_points[q]);
             // = mass_fractions i * entropy i
