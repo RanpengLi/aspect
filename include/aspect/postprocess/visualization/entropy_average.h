@@ -43,17 +43,25 @@ namespace aspect
        * base class. See there for their meaning.
        */
       template <int dim>
-      class NonadiabaticTemperature
+      class EntropyAverage
         : public DataPostprocessorScalar<dim>,
           public SimulatorAccess<dim>,
           public Interface<dim>
       {
         public:
-          NonadiabaticTemperature ();
+          EntropyAverage ();
 
           void
           evaluate_vector_field(const DataPostprocessorInputs::Vector<dim> &input_data,
                                 std::vector<Vector<double>> &computed_quantities) const override;
+
+
+        private:
+          /**
+           * Stores sets of compositional field indices to
+           * be visualized together as vector fields.
+           */
+          std::vector<std::vector<unsigned int>> sets;
       };
     }
   }
