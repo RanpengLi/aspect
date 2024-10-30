@@ -57,6 +57,8 @@ namespace aspect
         std::vector<unsigned int> entropy_field_idx;
         entropy_field_idx = this->introspection().get_indices_for_fields_of_type(CompositionalFieldDescription::entropy);
 
+        const auto &composition_component_indices = this->introspection().component_indices.compositional_fields;
+
         Assert(chemical_composition_idx.size() == entropy_field_idx.size() - 1, ExcInternalError());
 
         for (unsigned int q=0; q<n_quadrature_points; ++q)
@@ -65,7 +67,7 @@ namespace aspect
 
             for (unsigned int i=0; i<chemical_composition_idx.size(); ++i)
               {
-                sum_chemical_composition = sum_chemical_composition + input_data.solution_values[q][chemical_composition_idx[i]+4];
+                sum_chemical_composition = sum_chemical_composition + input_data.solution_values[q][composition_component_indices[chemical_composition_idx[i]]];
               }
 
             const double background_chemical_composition = 1.0 - sum_chemical_composition;
