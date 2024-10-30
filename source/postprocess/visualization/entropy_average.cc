@@ -72,11 +72,11 @@ namespace aspect
 
             const double background_chemical_composition = 1.0 - sum_chemical_composition;
 
-            double entropy = background_chemical_composition * input_data.solution_values[q][entropy_field_idx[0]+4];
+            double entropy = background_chemical_composition * input_data.solution_values[q][composition_component_indices[entropy_field_idx[0]]];
 
 
             for (unsigned int i=0; i<chemical_composition_idx.size(); ++i)
-              entropy = entropy + input_data.solution_values[q][chemical_composition_idx[i]+4] * input_data.solution_values[q][entropy_field_idx[i]+4+1];
+              entropy = entropy + input_data.solution_values[q][composition_component_indices[chemical_composition_idx[i]]] * input_data.solution_values[q][composition_component_indices[entropy_field_idx[i]]+1];
 
             computed_quantities[q](0) = entropy;
           }
