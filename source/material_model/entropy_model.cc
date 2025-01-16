@@ -355,7 +355,8 @@ namespace aspect //TEST
                           reaction_rate_out->reaction_rates[i][c] = 0.0;
 
 
-
+                          // Figure out if compositional field c is an entropy field and the how manyth entropy field it is
+                          // Can this loop go away?
                           for (unsigned int c = 0; c < in.composition[i].size(); ++c)
                             {
                               bool c_is_entropy_field = false;
@@ -374,6 +375,7 @@ namespace aspect //TEST
                                   ++nth_entropy_index;
                                 }
 
+
 //                          out.reaction_terms[i][c] = (composition_equalibrated_S[c_is_nth_entropy_field] - in.composition[i][entropy_indices[c_is_nth_entropy_field]]); //
 
 
@@ -388,8 +390,9 @@ namespace aspect //TEST
                                 reaction_rate_out->reaction_rates[i][c] = (composition_equalibrated_S[c_is_nth_entropy_field] - in.composition[i][entropy_indices[c_is_nth_entropy_field]]) / this->get_timestep();
 
                               //     std::cout << "reaction_rate_out = " << composition_equalibrated_S[c_is_nth_entropy_field] <<" " << std::endl;
-                            }
+
                         }
+                            }
 
                       out.reaction_terms[i][c] = 0.0;
 

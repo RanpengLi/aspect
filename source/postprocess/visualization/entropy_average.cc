@@ -76,7 +76,7 @@ namespace aspect
 
 
             for (unsigned int i=0; i<chemical_composition_idx.size(); ++i)
-              entropy = entropy + input_data.solution_values[q][composition_component_indices[chemical_composition_idx[i]]] * input_data.solution_values[q][composition_component_indices[entropy_field_idx[i]]+1];
+              entropy = entropy + input_data.solution_values[q][composition_component_indices[chemical_composition_idx[i]]] * input_data.solution_values[q][composition_component_indices[entropy_field_idx[i+1]]];
 
             computed_quantities[q](0) = entropy;
           }

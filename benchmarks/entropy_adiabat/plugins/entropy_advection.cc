@@ -281,6 +281,8 @@ namespace aspect
       {
         // Find the index of the entropy field and replace the assembler for it.
         // The index of the entropy field is its index in the compositional fields plus one (for the temperature field).
+
+        // need to loop over all entropy indices 
         const unsigned int entropy_index = simulator_access.introspection().get_indices_for_fields_of_type(CompositionalFieldDescription::entropy)[0]
                                            + 1;
         assemblers.advection_system[entropy_index].clear();
