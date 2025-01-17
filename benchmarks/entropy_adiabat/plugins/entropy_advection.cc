@@ -282,18 +282,17 @@ namespace aspect
         // Find the index of the entropy field and replace the assembler for it.
         // The index of the entropy field is its index in the compositional fields plus one (for the temperature field).
 
-        // need to loop over all entropy indices 
+        // loop over all entropy indices 
 
         std::vector<unsigned int> entropy_indices = simulator_access.introspection().get_indices_for_fields_of_type(CompositionalFieldDescription::entropy)
                                            ;
 
-      for (unsigned int i=2; i<4; ++i)
+      for (unsigned int i=0; i < entropy_indices.size(); ++i)
            {
 
-
-        assemblers.advection_system[i].clear();
-        assemblers.advection_system[i].emplace_back (std::make_unique<Assemblers::EntropyAdvectionSystem<dim>>());
-        assemblers.advection_system_assembler_properties[i].needed_update_flags = update_hessians;
+        assemblers.advection_system[entropy_indices[i]+1].clear();
+        assemblers.advection_system[entropy_indices[i]+1].emplace_back (std::make_unique<Assemblers::EntropyAdvectionSystem<dim>>());
+        assemblers.advection_system_assembler_properties[entropy_indices[i]+1].needed_update_flags = update_hessians;
 
           }
       }
