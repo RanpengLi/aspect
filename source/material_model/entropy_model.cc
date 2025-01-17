@@ -357,8 +357,8 @@ namespace aspect //TEST
 
                           // Figure out if compositional field c is an entropy field and the how manyth entropy field it is
                           // Can this loop go away?
-                          for (unsigned int c = 0; c < in.composition[i].size(); ++c)
-                            {
+               //           for (unsigned int c = 0; c < in.composition[i].size(); ++c)
+               //             {
                               bool c_is_entropy_field = false;
                               unsigned int c_is_nth_entropy_field = 0;
 
@@ -391,7 +391,7 @@ namespace aspect //TEST
 
                               //     std::cout << "reaction_rate_out = " << composition_equalibrated_S[c_is_nth_entropy_field] <<" " << std::endl;
 
-                        }
+                 //       }
                             }
 
                       out.reaction_terms[i][c] = 0.0;
