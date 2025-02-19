@@ -1016,8 +1016,8 @@ namespace aspect
         ++nonlinear_iteration;
       }
     while (nonlinear_solver_control.check(nonlinear_iteration, relative_residual) == SolverControl::iterate);
-    const AdvectionField adv_field (AdvectionField::temperature()); //????????????????
-    interpolate_material_output_into_advection_field(adv_field); //????????????
+    //    const AdvectionField adv_field (AdvectionField::temperature()); //????????????????
+    //    interpolate_material_output_into_advection_field(adv_field); //????????????
     AssertThrow(nonlinear_solver_control.last_check() != SolverControl::failure, ExcNonlinearSolverNoConvergence());
     signals.post_nonlinear_solver(nonlinear_solver_control);
   }
