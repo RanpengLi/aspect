@@ -277,7 +277,25 @@ namespace aspect
                 (*residual)[c] = system_rhs.block(introspection.block_indices.compositional_fields[c]).l2_norm();
 
               current_residual[c] = solve_advection(adv_field);
+// + 2 lines and for only if the adv_field is entropy field???
+              //const std::vector<CompositionalFieldDescription> &composition_descriptions = this->introspection().get_composition_descriptions();
+              if (introspection.composition_type_exists(CompositionalFieldDescription::entropy))
+      {
+        // Find the index of the entropy field and replace the assembler for it.
+        // The index of the entropy field is its index in the compositional fields plus one (for the temperature field).
 
+        // loop over all entropy indices 
+
+                  std::vector<unsigned int> entropy_indices = introspection.get_indices_for_fields_of_type(CompositionalFieldDescription::entropy)
+                                           ;
+                  double max_entropy_index = *std::max_element(entropy_indices.begin(), entropy_indices.end()); 
+      
+              if (c == max_entropy_index)  //field_type == compositional_field)    
+                {
+                  const AdvectionField T_field (AdvectionField::temperature()); //???
+                  interpolate_material_output_into_advection_field(T_field);
+                  } //???
+      }
               // Release the contents of the matrix block we used again:
               const unsigned int block_idx = adv_field.block_index(introspection);
               if (adv_field.sparsity_pattern_block_index(introspection)!=block_idx)
@@ -1016,8 +1034,8 @@ namespace aspect
         ++nonlinear_iteration;
       }
     while (nonlinear_solver_control.check(nonlinear_iteration, relative_residual) == SolverControl::iterate);
-    //    const AdvectionField adv_field (AdvectionField::temperature()); //????????????????
-    //    interpolate_material_output_into_advection_field(adv_field); //????????????
+    //    const AdvectionField adv_field (AdvectionField::temperature()); //???
+    //    interpolate_material_output_into_advection_field(adv_field); //???
     AssertThrow(nonlinear_solver_control.last_check() != SolverControl::failure, ExcNonlinearSolverNoConvergence());
     signals.post_nonlinear_solver(nonlinear_solver_control);
   }

@@ -306,12 +306,12 @@ namespace aspect
   template <int dim>
   void post_nonlinear_solver (const SolverControl &nonlinear_solver_control)
   {
-    const typename Simulator<dim>::AdvectionField adv_field (Simulator<dim>::AdvectionField::temperature());
-    interpolate_material_output_into_advection_field(adv_field); 
+ //   const typename Simulator<dim>::AdvectionField adv_field (Simulator<dim>::AdvectionField::temperature());
+ //   interpolate_material_output_into_advection_field(adv_field); 
 
 
-  //  const bool success = nonlinear_solver_control.last_check() == SolverControl::success;
-  //  std::cout << "\nnumber of nonlinear iterations: " << nonlinear_solver_control.last_step() << ". State: " << success << ".\n";
+    const bool success = nonlinear_solver_control.last_check() == SolverControl::success;
+    std::cout << "\nnumber of nonlinear iterations: " << nonlinear_solver_control.last_step() << ". State: " << success << ".\n";
   
   }
 
