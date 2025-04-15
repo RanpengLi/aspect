@@ -168,7 +168,10 @@ namespace aspect //TEST
                              const std::vector<double> &mass_fractions,
                              const std::vector<double> &entropy,
                              const std::vector<double> &Cp,
-                             const double pressure) const
+                             const double pressure,
+                             const double max_iteration,
+                             const double max_error
+                      ) const
     {
       AssertThrow(material_file_names.size() == temperature.size() && temperature.size() == mass_fractions.size() &&  temperature.size() == entropy.size() && temperature.size() == Cp.size(),
                   ExcMessage("The temperature, chemical composition, entropy and specific heat capacity vectors"
@@ -185,7 +188,7 @@ namespace aspect //TEST
       double ln_equalibrated_T = 0;
 
       // Step1
-
+   
       // TODO: set the iteration number as a parameter
       while (equalibration == false || iteration == 500)
         {
@@ -193,6 +196,12 @@ namespace aspect //TEST
           double T_denominator = 0;
 
           iteration += 1;
+          AssertThrow(iteration <= (max_iteration-2) || *min_element(mass_fractions.begin(),mass_fractions.end())==0,
+                  ExcMessage("Oops, the composition is not equalibrated after the iterations number you set :/. "
+                     "we are at pressure = " + std::to_string (pressure) +" and equilibrated T= " + std::to_string(std::exp(ln_equalibrated_T))
+                     +" composition 0 =" + std::to_string(composition_lookup_T[0]) + " composition 1 =" + std::to_string(composition_lookup_T[1])
+                     + " and iteration = " + std::to_string(iteration) +" and max_iteration = " + std::to_string(max_iteration)));
+
 
           for (unsigned int i = 0; i < material_file_names.size(); ++i)
             {
@@ -209,19 +218,19 @@ namespace aspect //TEST
               // step3
               composition_lookup_T[i] = entropy_reader[i]->temperature(composition_equalibrated_S[i], pressure);
 
-              // composition_lookup_Cp[i] = entropy_reader[i]->specific_heat(composition_equalibrated_S[i], pressure);
+               composition_lookup_Cp[i] = entropy_reader[i]->specific_heat(composition_equalibrated_S[i], pressure);
             }
           // step4
           // update the T0 and S0 to prepare for another iteration
           composition_initial_T = composition_lookup_T;
           composition_initial_S = composition_equalibrated_S;
-          //   composition_initial_Cp = composition_lookup_Cp;
+            composition_initial_Cp = composition_lookup_Cp;
 
           equalibration = true;
           for (unsigned int i = 0; i < material_file_names.size(); ++i)
             {
               // TODO: set the small value (currently 1e-5) as a parameter
-              if (std::abs (composition_lookup_T[i] - std::exp(ln_equalibrated_T)) >= 1e-8)
+              if (std::abs (composition_lookup_T[i] - std::exp(ln_equalibrated_T)) >= max_error)
                 {
                   equalibration = false;
                   break;
@@ -311,7 +320,7 @@ namespace aspect //TEST
 
 
 
-          const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, composition_temperature_lookup, mass_fractions, component_entropy, eos_outputs.specific_heat_capacities, pressure);
+          const double equilibrated_T = equilibrate_temperature (composition_equalibrated_S, composition_temperature_lookup, mass_fractions, component_entropy, eos_outputs.specific_heat_capacities, pressure, multicomp_max_iteration, multicomp_tolerance);
           const double temperature_lookup = equilibrated_T;
 
           /*
@@ -611,6 +620,19 @@ namespace aspect //TEST
                              Patterns::Double (0.),
                              "The maximum thermal conductivity that is allowed in the "
                              "model. Larger values will be cut off.");
+
+
+
+          prm.declare_entry ("Maximum iteration for multicomponent equilibration", "500",
+                              Patterns::Double (0.),
+                              "The maximum iteration for multicomponent equlibrating "
+                              "to reach the tolerance value. ");
+          prm.declare_entry ("Multicomponent equilibration tolerance", "1e-7",
+                                Patterns::Double (0.),
+                                "The maximum tolerance for multicomponent equlibrating "
+                            );
+
+
           prm.leave_subsection();
         }
 
@@ -673,6 +695,9 @@ namespace aspect //TEST
 
           angle_of_internal_friction = prm.get_double ("Angle of internal friction") * constants::degree_to_radians;
           cohesion = prm.get_double("Cohesion");
+
+          multicomp_max_iteration = prm.get_double("Maximum iteration for multicomponent equilibration");
+          multicomp_tolerance = prm.get_double("Multicomponent equilibration tolerance");
 
           prm.leave_subsection();
         }
