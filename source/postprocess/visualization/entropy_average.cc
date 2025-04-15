@@ -69,7 +69,12 @@ namespace aspect
               {
                 sum_chemical_composition = sum_chemical_composition + input_data.solution_values[q][composition_component_indices[chemical_composition_idx[i]]];
               }
-
+            
+              if (sum_chemical_composition > 1.0)
+              {
+                sum_chemical_composition = 1.0;
+              }
+              
             const double background_chemical_composition = 1.0 - sum_chemical_composition;
 
             double entropy = background_chemical_composition * input_data.solution_values[q][composition_component_indices[entropy_field_idx[0]]];
