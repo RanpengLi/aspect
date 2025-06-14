@@ -1,0 +1,46 @@
+# 1: Time step number
+# 2: Time (years)
+# 3: Time step size (years)
+# 4: Number of mesh cells
+# 5: Number of Stokes degrees of freedom
+# 6: Number of temperature degrees of freedom
+# 7: Number of degrees of freedom for all compositions
+# 8: Number of nonlinear iterations
+# 9: Iterations for temperature solver
+# 10: Iterations for composition solver 1
+# 11: Iterations for composition solver 2
+# 12: Iterations for composition solver 3
+# 13: Iterations for composition solver 4
+# 14: Iterations for Stokes solver
+# 15: Velocity iterations in Stokes preconditioner
+# 16: Schur complement iterations in Stokes preconditioner
+# 17: Visualization file name
+# 18: RMS velocity (m/year)
+# 19: Max. velocity (m/year)
+# 20: Minimal temperature (K)
+# 21: Average temperature (K)
+# 22: Maximal temperature (K)
+# 23: Outward mass flux through boundary with indicator 0 ("left") (kg/yr)
+# 24: Outward mass flux through boundary with indicator 1 ("right") (kg/yr)
+# 25: Outward mass flux through boundary with indicator 2 ("bottom") (kg/yr)
+# 26: Outward mass flux through boundary with indicator 3 ("top") (kg/yr)
+# 27: Minimal value for composition percent_fo_wad
+# 28: Maximal value for composition percent_fo_wad
+# 29: Global mass for composition percent_fo_wad
+# 30: Minimal value for composition entropy_fo
+# 31: Maximal value for composition entropy_fo
+# 32: Global mass for composition entropy_fo
+# 33: Minimal value for composition entropy_fo_wad
+# 34: Maximal value for composition entropy_fo_wad
+# 35: Global mass for composition entropy_fo_wad
+# 36: Minimal value for composition density_field
+# 37: Maximal value for composition density_field
+# 38: Global mass for composition density_field
+# 39: Minimum topography (m)
+# 40: Maximum topography (m)
+0 0.000000000000e+00 0.000000000000e+00 4 59 25 100  2   6 0  0  0 4294967294 10 14 14 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00000 1.50439175e-22 2.65679591e-22 1.23938541e+03 1.23938541e+03 1.23938541e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00 -1.19275309e-14 7.00000000e-01 7.00000000e-01 1.18300000e+08 2.20000000e+03 2.20000000e+03 3.71800000e+11 2.05000000e+03 2.05000000e+03 3.46450000e+11 3.57629629e+03 3.57629629e+03 6.04394072e+11 0.00000000e+00 0.00000000e+00 
+1 3.000000000000e+05 3.000000000000e+05 4 59 25 100 15 130 0 70 70 4294967281 50 80 80 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00001 1.53642570e-04 2.50450743e-04 1.24484671e+03 1.24491221e+03 1.24504353e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00  1.22575216e+04 7.00000000e-01 7.00000000e-01 1.18300000e+08 2.13115978e+03 2.13151795e+03 3.60186147e+11 2.09104418e+03 2.09140235e+03 3.53406611e+11 3.55413308e+03 3.55473903e+03 6.00716816e+11 0.00000000e+00 0.00000000e+00 
+2 6.000000000000e+05 3.000000000000e+05 4 59 25 100 13 106 0 60 60 4294967283 43 69 69 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00002 1.04676808e-04 1.69569331e-04 1.24873946e+03 1.24883032e+03 1.24900754e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00  8.24908313e+03 7.00000000e-01 7.00000000e-01 1.19024126e+08 2.13660495e+03 2.13722776e+03 3.63330874e+11 2.10020017e+03 2.10105638e+03 3.57154016e+11 3.53643067e+03 3.53814055e+03 6.01510792e+11 7.95743027e+01 7.95743051e+01 
+3 9.000000000000e+05 3.000000000000e+05 4 59 25 100 15 127 0 70 70 4294967281 37 67 67 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00003 1.78362409e-04 2.89966566e-04 1.25121088e+03 1.25130605e+03 1.25150047e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00  1.40303779e+04 7.00000000e-01 7.00000000e-01 1.19513736e+08 2.14049682e+03 2.14103948e+03 3.65486779e+11 2.11008283e+03 2.11136860e+03 3.60334880e+11 3.51349430e+03 3.51647421e+03 6.00214074e+11 1.33377551e+02 1.33377555e+02 
+4 1.200000000000e+06 3.000000000000e+05 4 59 25 100 15 132 0 76 76 4294967281 41 71 71 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00004 1.82954835e-04 3.00089695e-04 1.25366892e+03 1.25377710e+03 1.25399359e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00  1.44485864e+04 7.00000000e-01 7.00000000e-01 1.20351615e+08 2.14305291e+03 2.14323683e+03 3.68467642e+11 2.12069862e+03 2.12198917e+03 3.64687446e+11 3.48947900e+03 3.49224521e+03 6.00266467e+11 2.25452148e+02 2.25452156e+02 
+5 1.500000000000e+06 3.000000000000e+05 4 59 25 100 15 140 0 76 76 4294967281 54 84 84 output-entropy_multicomponent_8b_enthalpy_with_boundary_heating_and_phase_change/solution/solution-00005 1.38754424e-04 2.28814330e-04 1.25742025e+03 1.25755240e+03 1.25781296e+03 0.00000000e+00 0.00000000e+00 0.00000000e+00  1.09636683e+04 7.00000000e-01 7.00000000e-01 1.21220455e+08 2.14550587e+03 2.14555918e+03 3.71545077e+11 2.13139081e+03 2.13235175e+03 3.69153264e+11 3.46960029e+03 3.47111396e+03 6.01011984e+11 3.20929097e+02 3.20929105e+02 

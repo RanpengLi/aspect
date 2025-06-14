@@ -1,0 +1,43 @@
+# 1: Time step number
+# 2: Time (years)
+# 3: Time step size (years)
+# 4: Number of mesh cells
+# 5: Number of Stokes degrees of freedom
+# 6: Number of temperature degrees of freedom
+# 7: Number of degrees of freedom for all compositions
+# 8: Number of nonlinear iterations
+# 9: Iterations for temperature solver
+# 10: Iterations for composition solver 1
+# 11: Iterations for composition solver 2
+# 12: Iterations for composition solver 3
+# 13: Iterations for composition solver 4
+# 14: Iterations for Stokes solver
+# 15: Velocity iterations in Stokes preconditioner
+# 16: Schur complement iterations in Stokes preconditioner
+# 17: Visualization file name
+# 18: RMS velocity (m/year)
+# 19: Max. velocity (m/year)
+# 20: Minimal temperature (K)
+# 21: Average temperature (K)
+# 22: Maximal temperature (K)
+# 23: Average nondimensional temperature (K)
+# 24: Outward mass flux through boundary with indicator 0 ("left") (kg/yr)
+# 25: Outward mass flux through boundary with indicator 1 ("right") (kg/yr)
+# 26: Outward mass flux through boundary with indicator 2 ("bottom") (kg/yr)
+# 27: Outward mass flux through boundary with indicator 3 ("top") (kg/yr)
+# 28: Minimal value for composition percent_en
+# 29: Maximal value for composition percent_en
+# 30: Global mass for composition percent_en
+# 31: Minimal value for composition entropy_fo
+# 32: Maximal value for composition entropy_fo
+# 33: Global mass for composition entropy_fo
+# 34: Minimal value for composition entropy_en
+# 35: Maximal value for composition entropy_en
+# 36: Global mass for composition entropy_en
+# 37: Minimal value for composition density_field
+# 38: Maximal value for composition density_field
+# 39: Global mass for composition density_field
+0 0.000000000000e+00 0.000000000000e+00 40 568 243 972  2   0 0  0  0 4294967294 154 158 158 output-entropy_multicomponent_4_conduction/solution/solution-00000 1.48144627e-13 6.64882853e-13 1.09112412e+03 1.11881648e+03 1.14398212e+03 7.33961459e-03 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00 3.00000000e-01 3.00000000e-01 6.00000000e+08 2.70000000e+03 2.70000000e+03 5.40000000e+12 6.00000000e+02 6.00000000e+02 1.20000000e+12 3.10520124e+03 3.27313102e+03 6.38257179e+12 
+1 1.000000000000e+08 1.000000000000e+08 40 568 243 972 10 469 0 72 72 4294967286 762 782 782 output-entropy_multicomponent_4_conduction/solution/solution-00001 9.41260721e-08 1.37504850e-07 1.09112412e+03 1.10751196e+03 1.12597361e+03 4.34345159e-03 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00 3.00000000e-01 3.00000000e-01 6.00000000e+08 1.98162700e+03 2.70000000e+03 4.12296383e+12 6.00000000e+02 2.27496574e+03 4.09597883e+12 3.10520124e+03 3.30985299e+03 6.45698125e+12 
+2 2.000000000000e+08 1.000000000000e+08 40 568 243 972 10 463 0 66 66 4294967286 668 688 688 output-entropy_multicomponent_4_conduction/solution/solution-00002 1.45113468e-07 2.04350822e-07 1.09112412e+03 1.09978762e+03 1.11019519e+03 2.29618471e-03 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00 3.00000000e-01 3.00000000e-01 6.00000000e+08 1.98094893e+03 2.70000000e+03 4.10556784e+12 6.00000000e+02 2.27577273e+03 4.07878501e+12 3.10520124e+03 3.31118548e+03 6.45841461e+12 
+3 3.000000000000e+08 1.000000000000e+08 40 568 243 972 10 461 0 65 65 4294967286 766 786 786 output-entropy_multicomponent_4_conduction/solution/solution-00003 2.83025157e-08 3.80527473e-08 1.09112412e+03 1.09530984e+03 1.10033132e+03 1.10938701e-03 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00 3.00000000e-01 3.00000000e-01 6.00000000e+08 1.98076872e+03 2.70000000e+03 4.09539243e+12 6.00000000e+02 2.27575947e+03 4.06880948e+12 3.10520124e+03 3.31201556e+03 6.45924303e+12 
